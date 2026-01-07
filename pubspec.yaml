@@ -1,0 +1,49 @@
+name: goal_fit
+description: "Your Fitness. Your Journey"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  get: ^4.7.3
+  flutter_native_splash: ^2.4.7
+  shared_preferences: ^2.5.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/img/
+    - assets/home/
+    - assets/create/
+    - assets/notification/
+    - assets/workout/
+
+flutter_native_splash:
+  android: true
+  ios: true
+
+  color: '#C9CCEC'
+  image: 'assets/img/logo.png'
+  background_image: 'assets/img/background.png'
+  branding: 'assets/img/brand.png'
+
+  android_12:
+    # color: '#C9CCEC'
+    # color: '#E6EAF2'
+    color: '#0F172A'
+    image: 'assets/img/logo-android.png'
+    branding: 'assets/img/brand.png'
