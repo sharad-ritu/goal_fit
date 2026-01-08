@@ -78,16 +78,6 @@ class MainLayout extends GetView<MainLayoutController> {
     return Obx(
       () => Scaffold(
         body: IndexedStack(index: controller.tabIndex.value, children: tabs),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   currentIndex: controller.tabIndex.value,
-        //   onTap: controller.changeTab,
-        //   backgroundColor: ,
-        //   items: const [
-        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        //     BottomNavigationBarItem(icon: Icon(Icons.add_box), label: "Create"),
-        //     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        //   ],
-        // ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
             color: Color(0xFFBCC8D5),
