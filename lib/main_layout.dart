@@ -161,10 +161,10 @@ class _TabNav extends StatelessWidget {
 
         // PROFILE TAB (named routes supported here)
         if (navigatorId == 2) {
-          if (settings.name == AppRouter.profileStats) {
+          if (settings.name == AppRouter.stats) {
             return GetPageRoute(
               settings: settings,
-              page: () => const ProfileStatsPage(),
+              page: () => const StatisticsPage(),
             );
           }
 

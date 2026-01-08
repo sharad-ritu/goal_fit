@@ -19,7 +19,7 @@ class AppRouter {
   static const String main = '/main';
   static const String signIn = '/sign-in';
   static const String signUp = '/sign-up';
-  static const String profileStats = '/profile-stats';
+  static const String stats = '/stats';
   static const String terms = '/terms';
   static const String privacy = '/privacy';
   static const String notifications = '/notifications';
@@ -53,8 +53,8 @@ class AppRouter {
     ),
 
     GetPage(
-      name: profileStats,
-      page: () => const ProfileStatsPage(),
+      name: stats,
+      page: () => const StatisticsPage(),
       middlewares: [AuthMiddleware()],
     ),
 

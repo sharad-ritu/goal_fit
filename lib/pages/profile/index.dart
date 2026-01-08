@@ -101,7 +101,13 @@ class ProfilePage extends StatelessWidget {
                   Get.toNamed(AppRouter.congrats, id: 2);
                 },
               ),
-              _MenuTile(icon: Icons.bar_chart_rounded, title: 'Statistics'),
+              _MenuTile(
+                icon: Icons.bar_chart_rounded,
+                title: 'Statistics',
+                onTap: () {
+                  Get.toNamed(AppRouter.stats, id: 2);
+                },
+              ),
               _MenuTile(
                 icon: Icons.fitness_center,
                 title: 'WorkOut Tracker',
