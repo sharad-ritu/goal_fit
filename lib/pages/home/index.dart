@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:goal_fit/app_router.dart';
-// import 'package:goal_fit/controllers/auth/auth_controller.dart';
 import 'package:goal_fit/controllers/home/home_controller.dart';
 import 'package:goal_fit/services/auth_service.dart';
 
@@ -17,7 +16,6 @@ class HomePage extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFE9E4E4),
         surfaceTintColor: Colors.transparent,
-
         leading: Padding(
           padding: const EdgeInsets.all(8),
           child: Container(
@@ -28,7 +26,6 @@ class HomePage extends GetView<HomeController> {
             child: const Icon(Icons.person, color: Colors.black, size: 26),
           ),
         ),
-
         title: Obx(() {
           final name = (auth.currentUser.value?['name'] ?? '')
               .toString()
@@ -43,7 +40,6 @@ class HomePage extends GetView<HomeController> {
             overflow: TextOverflow.ellipsis,
           );
         }),
-
         actions: [
           IconButton(
             onPressed: () async {
@@ -60,10 +56,11 @@ class HomePage extends GetView<HomeController> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(18),
+            padding: const EdgeInsets.all(18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Search (static)
                 Container(
                   height: 54,
                   decoration: BoxDecoration(
@@ -71,8 +68,8 @@ class HomePage extends GetView<HomeController> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.search, size: 26, color: Colors.black),
                       SizedBox(width: 12),
                       Text(
@@ -89,6 +86,7 @@ class HomePage extends GetView<HomeController> {
 
                 const SizedBox(height: 20),
 
+                // Banner (static)
                 Container(
                   height: 190,
                   decoration: BoxDecoration(
@@ -98,7 +96,6 @@ class HomePage extends GetView<HomeController> {
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      // Left text + button
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,9 +110,7 @@ class HomePage extends GetView<HomeController> {
                                 height: 1.2,
                               ),
                             ),
-
                             const SizedBox(height: 10),
-
                             SizedBox(
                               height: 44,
                               child: ElevatedButton(
@@ -131,9 +126,9 @@ class HomePage extends GetView<HomeController> {
                                   ),
                                 ),
                                 onPressed: () {},
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Text(
                                       'Join',
                                       style: TextStyle(
@@ -150,9 +145,7 @@ class HomePage extends GetView<HomeController> {
                           ],
                         ),
                       ),
-
                       const SizedBox(width: 14),
-
                       Image.asset(
                         'assets/home/home-1.png',
                         height: 140,
@@ -164,6 +157,18 @@ class HomePage extends GetView<HomeController> {
 
                 const SizedBox(height: 20),
 
+                const Text(
+                  'Popular Exercises',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Tags
                 SizedBox(
                   height: 30,
                   child: Obx(() {
@@ -203,124 +208,25 @@ class HomePage extends GetView<HomeController> {
                   }),
                 ),
 
-                const SizedBox(height: 20),
-
-                const Text(
-                  'Popular Exercises',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                  ),
-                ),
-
                 const SizedBox(height: 16),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFACBABD),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Pull-ups',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/home/home-2.png',
-                                height: 90,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Sets: 3-4',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFF2470E),
-                              ),
-                            ),
-                            const Text(
-                              'Reps: 8-12',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFF2470E),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                // Exercises (horizontal scroll, filtered by tag)
+                SizedBox(
+                  height: 210,
+                  child: Obx(() {
+                    final list = controller.filteredExercises;
 
-                    const SizedBox(width: 16),
-
-                    // Bent-over rows card
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFACBABD),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Bent-over rows',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/home/home-3.png',
-                                height: 90,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Sets: 3-4',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFF2470E),
-                              ),
-                            ),
-                            const Text(
-                              'Reps: 10-12',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFF2470E),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                    return ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: list.length,
+                      padding: const EdgeInsets.only(right: 6),
+                      separatorBuilder: (_, __) => const SizedBox(width: 16),
+                      itemBuilder: (context, index) {
+                        final ex = list[index];
+                        return _ExerciseCard(item: ex);
+                      },
+                    );
+                  }),
                 ),
 
                 const SizedBox(height: 20),
@@ -336,6 +242,7 @@ class HomePage extends GetView<HomeController> {
 
                 const SizedBox(height: 16),
 
+                // Your Plan (same as your code)
                 Row(
                   children: [
                     Expanded(
@@ -367,9 +274,7 @@ class HomePage extends GetView<HomeController> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 18),
-
                             const Text(
                               'Power Lifting',
                               style: TextStyle(
@@ -378,9 +283,7 @@ class HomePage extends GetView<HomeController> {
                                 color: Colors.black,
                               ),
                             ),
-
                             const SizedBox(height: 20),
-
                             const Text(
                               '20 December\n18:00-19:30\nRoom no:H3',
                               style: TextStyle(
@@ -390,9 +293,7 @@ class HomePage extends GetView<HomeController> {
                                 color: Colors.black,
                               ),
                             ),
-
                             const Spacer(),
-
                             Row(
                               children: [
                                 const Expanded(
@@ -420,7 +321,6 @@ class HomePage extends GetView<HomeController> {
                                     ],
                                   ),
                                 ),
-
                                 Container(
                                   width: 40,
                                   height: 40,
@@ -439,9 +339,7 @@ class HomePage extends GetView<HomeController> {
                         ),
                       ),
                     ),
-
                     const SizedBox(width: 18),
-
                     Expanded(
                       child: Container(
                         height: 270,
@@ -471,9 +369,7 @@ class HomePage extends GetView<HomeController> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 18),
-
                             const Text(
                               'Cardio',
                               style: TextStyle(
@@ -482,9 +378,7 @@ class HomePage extends GetView<HomeController> {
                                 color: Colors.black,
                               ),
                             ),
-
                             const SizedBox(height: 20),
-
                             const Text(
                               '24 December\n12:00-14:30\nRoom: Gym Lobby',
                               style: TextStyle(
@@ -494,9 +388,7 @@ class HomePage extends GetView<HomeController> {
                                 color: Colors.black,
                               ),
                             ),
-
                             const Spacer(),
-
                             Row(
                               children: [
                                 const Expanded(
@@ -524,7 +416,6 @@ class HomePage extends GetView<HomeController> {
                                     ],
                                   ),
                                 ),
-
                                 Container(
                                   width: 40,
                                   height: 40,
@@ -549,6 +440,66 @@ class HomePage extends GetView<HomeController> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ExerciseCard extends StatelessWidget {
+  const _ExerciseCard({required this.item});
+
+  final ExerciseItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        color: const Color(0xFFACBABD),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              item.imagePath,
+              height: 90,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Sets: ${item.sets}',
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            'Reps: ${item.reps}',
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

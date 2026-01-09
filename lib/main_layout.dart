@@ -77,6 +77,7 @@ class MainLayout extends GetView<MainLayoutController> {
 
     return Obx(
       () => Scaffold(
+        // extendBody: true,
         body: IndexedStack(index: controller.tabIndex.value, children: tabs),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
